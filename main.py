@@ -22,7 +22,7 @@ def handle_data():
     button = request.args.get('button')
     if button == 'download':
         return download(number)
-    return refresh()
+    return refresh(number)
 
 def download(size):
     def generate():
@@ -32,8 +32,8 @@ def download(size):
     return Response(generate(), mimetype='application/octet-stream')
 
 @app.route('/refresh', methods=['GET'])
-def refresh():
-    print(os.system('sh run-tests.sh'))
+def refresh(size):
+    print(os.system('sh run-tests.sh ' + size))
     return redirect('/')
 
 
