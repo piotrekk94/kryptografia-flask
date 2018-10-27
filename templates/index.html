@@ -1,0 +1,31 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Title of the document</title>
+</head>
+<body>
+
+{% for data in dataServer %}
+	<div>
+		{{data[0]}}: <br> 
+		<div style='margin-left:2em'>
+		stats:
+		<div style='margin-left:2em'>
+		{{data[1]}} <br>
+		</div>
+		result:
+		<div style='margin-left:2em'>
+		{{data[2]}} <br>
+		</div>
+		</div>
+	</div>
+{% endfor %}
+</form>
+<form action="data" method="get">
+<input type="number" name="size"><br>
+<input type="submit" name="button" value="download">
+<input type="submit" name="button" value="refresh">
+</form>
+</body>
+</html> 
