@@ -10,7 +10,7 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def hello():
     data = []
-    for dir in os.listdir():
+    for dir in os.listdir('results'):
         if os.path.isdir(dir):
             if path.exists(dir + "/result.txt") and path.exists(dir + "/stats.txt"):
                 data.append((dir, open(dir + "/stats.txt").read(), open(dir + "/result.txt").read()))
@@ -33,7 +33,7 @@ def download(size):
 
 @app.route('/refresh', methods=['GET'])
 def refresh():
-    print(os.system('sh runTests'))
+    print(os.system('sh run-tests.sh'))
     return redirect('/')
 
 
