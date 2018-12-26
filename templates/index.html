@@ -1,31 +1,48 @@
  <!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+<link rel= "stylesheet" type="text/css" href= "{{ url_for('static',filename='style.css') }}">
+<link rel="shortcut icon" type="image/png" href="{{ url_for('static',filename='favicon.png') }}"/>
 <meta charset="UTF-8">
 <title>Title of the document</title>
 </head>
 <body>
-
+<div class="tab">
+	<button class="tablinks" id="Options-tablinks" onclick="openTab(event, 'Options')">Options</button>
 {% for data in dataServer %}
-	<div>
-		{{data[0]}}: <br> 
+	<button class="tablinks" id="{{data[0]}}-tablinks" onclick="openTab(event, '{{data[0]}}')">{{data[0]}}</button>
+{% endfor %}
+</div>
+{% for data in dataServer %}
+<div id="{{data[0]}}" class='tabcontent'>
+	<h3>{{data[0]}}:</h3>
+	<div style='margin-left:2em'>
+		Stats:
 		<div style='margin-left:2em'>
-		stats:
-		<div style='margin-left:2em'>
-		{{data[1]}} <br>
+			<pre>
+{{data[1]}} 
+			</pre> 
+			<br>
 		</div>
-		result:
+		Result:
 		<div style='margin-left:2em'>
-		{{data[2]}} <br>
-		</div>
+			<pre>
+{{data[2]}} 
+			</pre> 
+			<br>
 		</div>
 	</div>
+</div>
 {% endfor %}
-</form>
-<form action="data" method="get">
-<input type="number" name="size"><br>
-<input type="submit" name="button" value="download">
-<input type="submit" name="button" value="refresh">
-</form>
+<div id="Options" class='tabcontent'>
+	<h3>Options:<h3>
+	</form>
+	<form action="data" method="get">
+		<input type="number" name="size" label="File size:"><br>
+		<input type="submit" name="button" value="Download">
+		<input type="submit" name="button" value="Tests refresh">
+	</form>
+</div>
 </body>
 </html> 

@@ -10,17 +10,21 @@ app = Flask(__name__)
 @app.route("/", methods=['GET'])
 def hello():
     data = []
-    for dir in os.listdir('results'):
-        if os.path.isdir(dir):
-            if path.exists(dir + "/result.txt") and path.exists(dir + "/stats.txt"):
-                data.append((dir, open(dir + "/stats.txt").read(), open(dir + "/result.txt").read()))
-    return render_template('index.html', dataServer=data)
+    absd = []
+    for dir in os.listdir('./results'):
+        absdir = os.path.abspath('results/' + dir)
+        absd.append(absdir)
+        if os.path.isdir(absdir):
+            if path.exists(absdir + "/results.txt") and path.exists(absdir + "/stats.txt"):
+                data.append((dir, open(absdir + "/stats.txt").read(), open(absdir + "/results.txt").read()))
+    data.append(("Summary", open('./results/freq.txt').read(), open('./results/finalAnalysisReport.txt').read()))
+    return render_template('index.html', dataServer=data, temp=absd)
 
 @app.route('/data', methods=['GET'])
 def handle_data():
     number = request.args.get('size')
     button = request.args.get('button')
-    if button == 'download':
+    if button.lower() == 'download':
         return download(number)
     return refresh(number)
 
